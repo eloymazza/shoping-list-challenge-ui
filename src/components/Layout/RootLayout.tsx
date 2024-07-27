@@ -9,7 +9,7 @@ type RootLayoutProps = {
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
     <StyledLayoutContainer>
-      {/* TODO: Make this dynamic */}
+      {/* TODO: Make this title dynamic */}
       <Header>SHOPOING LIST</Header>
       <StyledMain>{children}</StyledMain>
     </StyledLayoutContainer>
