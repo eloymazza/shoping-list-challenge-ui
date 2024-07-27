@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
 import StylesProvider from "./StylesProvider";
+import { Outlet } from "react-router-dom";
 
-type Props = {
-  children: ReactNode;
-};
-
-const Providers: React.FC<Props> = ({ children }) => {
-  return <StylesProvider>{children}</StylesProvider>;
+const Providers = () => {
+  return (
+    <StylesProvider>
+      <Outlet />
+    </StylesProvider>
+  );
 };
 
 export default Providers;
