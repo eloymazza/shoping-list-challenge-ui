@@ -1,10 +1,13 @@
 import StylesProvider from "./StylesProvider";
 import { Outlet } from "react-router-dom";
+import { GlobalStateProvider } from "./GlobalStateProvider";
 
 const Providers = () => {
   return (
     <StylesProvider>
-      <Outlet />
+      <GlobalStateProvider>
+        <Outlet />
+      </GlobalStateProvider>
     </StylesProvider>
   );
 };
