@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import Providers from "./providers/Providers.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./components/Layout/RootLayout.tsx";
-import TaskList from "./pages/TaskList.tsx";
 import ErrorPage from "./components/Layout/ErrorPage.tsx";
+import ShoppingListPage from "./pages/ShoppingListPage.tsx";
 
 // TODO: improve routes wrapping
 const router = createBrowserRouter([
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <RootLayout>
-            <TaskList />
+            <ShoppingListPage />
           </RootLayout>
         ),
       },
