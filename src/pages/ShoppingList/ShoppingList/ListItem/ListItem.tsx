@@ -20,9 +20,7 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteConfirmDialog, setShowDeleteConfirmDialog] = useState(false);
 
-  const handleCheckboxClick = () => {
-    console.log("Checkbox clicked");
-  };
+  const handleCheckboxClick = () => {};
 
   const handleEditItem = (item: Item) => {
     setShowEditDialog(true);
