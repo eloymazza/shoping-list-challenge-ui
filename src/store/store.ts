@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import shoppingListReducer from "./features/shoppingListSlice";
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import shoppingListSlice from "./features/shoppingListSlice";
+
+const rootReducer = combineSlices(shoppingListSlice);
 
 export const store = configureStore({
-  reducer: {
-    shoppingList: shoppingListReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

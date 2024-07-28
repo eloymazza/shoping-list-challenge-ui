@@ -1,7 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 // import axios from "axios";
 import { RootState } from "../store";
 import { Item } from "../../types/types";
+import {
+  deleteItem,
+  fetchAllItems,
+  postItem,
+} from "../../services/shoppingList";
+import { createAppSlice } from "../CreateAppSlice";
 
 export interface ShoppingListState {
   items: Item[];
@@ -15,50 +21,77 @@ const initialState: ShoppingListState = {
   error: null,
 };
 
-// Async thunk for fetching items
-// export const fetchItems = createAsyncThunk(
-//   "shoppingList/fetchItems",
-//   async () => {
-//     const response = await axios.get("/api/shopping-list");
-//     return response.data;
-//   }
-// );
+type AddItemResponse = {
+  data: Item[];
+};
 
-const shoppingListSlice = createSlice({
+const shoppingListSlice = createAppSlice({
   name: "shoppingList",
   initialState,
-  reducers: {
-    addItem: (state, action: PayloadAction<Item>) => {
-      state.items.push(action.payload);
-    },
-    removeItem: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
-    },
-    editItem: (state, action: PayloadAction<Item>) => {
-      const index = state.items.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      state.items[index] = action.payload;
-    },
-  },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(fetchItems.pending, (state) => {
-  //       state.status = "loading";
-  //     })
-  //     .addCase(fetchItems.fulfilled, (state, action) => {
-  //       state.status = "succeeded";
-  //       state.items = action.payload;
-  //     })
-  //     .addCase(fetchItems.rejected, (state, action) => {
-  //       state.status = "failed";
-  //       state.error = action.error.message || null;
-  //     });
-  // },
+  reducers: (create) => ({
+    addItem: create.asyncThunk(postItem, {
+      pending: (state) => {
+        state.status = "loading";
+      },
+      fulfilled: (state, action: PayloadAction<AddItemResponse>) => {
+        state.status = "succeeded";
+        state.items.push(action.payload.data[0]);
+      },
+      rejected: (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      },
+    }),
+    removeItem: create.asyncThunk(deleteItem, {
+      pending: (state) => {
+        state.status = "loading";
+      },
+      fulfilled: (state, action) => {
+        state.status = "succeeded";
+        state.items = state.items.filter(
+          (item) => item.id !== action.payload.data.id
+        );
+      },
+      rejected: (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      },
+    }),
+    editItem: create.asyncThunk(postItem, {
+      pending: (state) => {
+        state.status = "loading";
+      },
+      fulfilled: (state, action) => {
+        state.status = "succeeded";
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.data[0].id
+        );
+        state.items[index] = action.payload.data[0];
+      },
+      rejected: (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      },
+    }),
+    fetchItems: create.asyncThunk(fetchAllItems, {
+      pending: (state) => {
+        state.status = "loading";
+      },
+      fulfilled: (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload.data;
+      },
+      rejected: (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      },
+    }),
+  }),
 });
 
-export const { addItem, removeItem, editItem } = shoppingListSlice.actions;
+export const { addItem, removeItem, editItem, fetchItems } =
+  shoppingListSlice.actions;
 
 export const select = (state: RootState) => state.shoppingList;
 
-export default shoppingListSlice.reducer;
+export default shoppingListSlice;
