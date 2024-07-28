@@ -1,22 +1,35 @@
 import { useState } from "react";
 import { useAppSelector } from "../../store/hooks";
-
 import {
   StyledShoppingListContainer,
   StyledEmptyListMessageContainer,
 } from "./StyledShoppingList";
-import { Dialog } from "@mui/material";
+import { Dialog, IconButton } from "@mui/material";
 import EmptyListMessage from "./EmptyListMessage/EmptyListMessage";
+import ShoppingListForm from "./ShoppingListForm/ShoppingListForm";
+import { Item } from "../../types/types";
 
 const ShoppingListPage = () => {
   const [showShoppingListForm, setShowShoppingListForm] = useState(false);
+  const [editingItem, setEditingItem] = useState<Item>();
   const { items, error, status } = useAppSelector(
     (state) => state.shoppingList
   );
-  const showList = status === "succeeded" && items.length > 0;
+
+  const showList = items.length > 0;
 
   const handleShowShoppingListClick = () => {
     setShowShoppingListForm(true);
+  };
+
+  const handleShowShoppingListClose = () => {
+    setShowShoppingListForm(false);
+  };
+
+  const handleEditItemClick = (item: Item) => {
+    console.log("Edit item clicked");
+    setShowShoppingListForm(true);
+    setEditingItem(item);
   };
 
   return (
@@ -24,7 +37,15 @@ const ShoppingListPage = () => {
       {showList ? (
         <ul>
           {items.map((item) => (
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>
+              {item.name}
+              <IconButton
+                className="material-icons"
+                onClick={() => handleEditItemClick(item)}
+              >
+                edit
+              </IconButton>
+            </li>
           ))}
         </ul>
       ) : (
@@ -34,10 +55,13 @@ const ShoppingListPage = () => {
           />
         </StyledEmptyListMessageContainer>
       )}
-      <Dialog
-        open={showShoppingListForm}
-        onClose={() => setShowShoppingListForm(false)}
-      />
+      {/* TODO Move ths insde empty message list */}
+      <Dialog open={showShoppingListForm} onClose={handleShowShoppingListClose}>
+        <ShoppingListForm
+          item={editingItem}
+          onClose={handleShowShoppingListClose}
+        />
+      </Dialog>
     </StyledShoppingListContainer>
   );
 };

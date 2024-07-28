@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import axios from "axios";
 import { RootState } from "../store";
-
-interface Item {
-  id: number;
-  name: string;
-}
+import { Item } from "../../types/types";
 
 export interface ShoppingListState {
   items: Item[];
@@ -38,6 +34,12 @@ const shoppingListSlice = createSlice({
     removeItem: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
+    editItem: (state, action: PayloadAction<Item>) => {
+      const index = state.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.items[index] = action.payload;
+    },
   },
   // extraReducers: (builder) => {
   //   builder
@@ -55,7 +57,7 @@ const shoppingListSlice = createSlice({
   // },
 });
 
-export const { addItem, removeItem } = shoppingListSlice.actions;
+export const { addItem, removeItem, editItem } = shoppingListSlice.actions;
 
 export const select = (state: RootState) => state.shoppingList;
 
