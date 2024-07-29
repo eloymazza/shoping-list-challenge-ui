@@ -3,7 +3,7 @@ import { FormControlLabel, styled, Typography } from "@mui/material";
 export const StyledSFormContainer = styled("section")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  width: "500px",
+  // width: "500px",
   height: "88dvh",
 }));
 
