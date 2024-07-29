@@ -12,6 +12,8 @@ import ShoppingListFormDialog from "../../../../components/UI/ShoppingListFormDi
 import DeleteItemConfirmDialog from "../../../../components/UI/DeleteItemConfirmDialog/DeleteItemConfirmDialog";
 import { useAppDispatch } from "../../../../store/hooks";
 import { editItem } from "../../../../store/features/shoppingListSlice";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 type ListItemProps = {
   item: Item;
@@ -26,7 +28,7 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
     dispatch(
       editItem({
         ...item,
-        checked: !item.checked,
+        purchased: !item.purchased,
       })
     );
   };
@@ -44,35 +46,30 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
     <>
       <StyledListItem key={item.id}>
         <Checkbox
-          checked={item.checked}
+          checked={Boolean(item.purchased)}
           onClick={() => handleCheckboxClick(item)}
         />
         <StyledItemContent>
           <StyledItemTitle
             variant="h4"
-            className={item.checked ? "strike-through" : ""}
+            className={item.purchased ? "strike-through" : ""}
+            color={item.purchased ? "primary.main" : "initial"}
           >
             {item.name}
           </StyledItemTitle>
           <StyledItemDescription
             variant="h5"
-            className={item.checked ? "strike-through" : ""}
+            className={item.purchased ? "strike-through" : ""}
           >
             {item.description}
           </StyledItemDescription>
         </StyledItemContent>
         <StyledListActionsContainer>
-          <IconButton
-            className="material-icons"
-            onClick={() => handleEditItem(item)}
-          >
-            edit
-          </IconButton>{" "}
-          <IconButton
-            className="material-icons"
-            onClick={() => handleDeleteItemClick()}
-          >
-            delete
+          <IconButton title="edit" onClick={() => handleEditItem(item)}>
+            <EditOutlinedIcon />
+          </IconButton>
+          <IconButton title="delete" onClick={() => handleDeleteItemClick()}>
+            <DeleteOutlinedIcon />
           </IconButton>
         </StyledListActionsContainer>
       </StyledListItem>

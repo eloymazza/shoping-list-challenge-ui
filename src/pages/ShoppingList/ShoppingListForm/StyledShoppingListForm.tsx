@@ -1,9 +1,8 @@
-import { styled, Typography } from "@mui/material";
+import { FormControlLabel, styled, Typography } from "@mui/material";
 
-export const StyledSFormContainer = styled("section")(({ theme }) => ({
+export const StyledSFormContainer = styled("section")(() => ({
   display: "flex",
   flexDirection: "column",
-  width: "500px",
   height: "88dvh",
 }));
 
@@ -45,6 +44,13 @@ export const StyledFormControls = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(2),
+}));
+
+export const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
+  color: theme.palette.grey[700],
+  "& .MuiFormControlLabel-label": {
+    marginTop: "0.25rem",
+  },
 }));
 
 export const StyledFormActionsContainer = styled("div")(({ theme }) => ({

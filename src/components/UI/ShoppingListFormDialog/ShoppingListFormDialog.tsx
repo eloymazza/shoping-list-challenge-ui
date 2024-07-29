@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { Dialog, styled } from "@mui/material";
 import { FC } from "react";
 import ShoppingListForm from "../../../pages/ShoppingList/ShoppingListForm/ShoppingListForm";
 import { Item } from "../../../types/types";
@@ -16,10 +16,16 @@ const ShoppingListFormDialog: FC<ShoppingListFormDialogProps> = ({
   handleClose,
 }) => {
   return (
-    <Dialog open={showDialog} onClose={handleClose}>
+    <StyledFormDialog open={showDialog} onClose={handleClose}>
       <ShoppingListForm item={item} onClose={handleClose} />
-    </Dialog>
+    </StyledFormDialog>
   );
 };
+
+const StyledFormDialog = styled(Dialog)({
+  "& .MuiDialog-paper": {
+    width: "100%",
+  },
+});
 
 export default ShoppingListFormDialog;

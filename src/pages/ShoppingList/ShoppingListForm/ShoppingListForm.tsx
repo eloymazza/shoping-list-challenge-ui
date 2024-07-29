@@ -1,9 +1,10 @@
-import { Button, IconButton, Typography } from "@mui/material";
+import { Button, Checkbox, IconButton, Typography } from "@mui/material";
 import {
   StyledForm,
   StyledFormAction,
   StyledFormActionsContainer,
   StyledFormBody,
+  StyledFormControlLabel,
   StyledFormControls,
   StyledFormHeader,
   StyledSFormContainer,
@@ -17,6 +18,10 @@ import CustomSelect from "../../../components/UI/CustomSelect/CustomSelect";
 import { useAppDispatch } from "../../../store/hooks";
 import { addItem, editItem } from "../../../store/features/shoppingListSlice";
 import { Item } from "../../../types/types";
+import {
+  DESCRIPTION_MAX_LENGTH,
+  QUANTITY_OPTIONS,
+} from "../../../config/formConfig";
 
 type ShoppingListFormProps = {
   onClose: () => void;
@@ -30,13 +35,6 @@ type FormError = {
 
 // TODO: improve this form component splitting responsibilities
 const ShoppingListForm: FC<ShoppingListFormProps> = ({ onClose, item }) => {
-  const DESCRIPTION_MAX_LENGTH = 100;
-  const QUANTITY_OPTIONS = [
-    { label: "1", value: "1" },
-    { label: "2", value: "2" },
-    { label: "3", value: "3" },
-  ];
-
   const [nameError, setNameError] = useState<FormError>({
     error: false,
     message: "",
@@ -55,6 +53,7 @@ const ShoppingListForm: FC<ShoppingListFormProps> = ({ onClose, item }) => {
     const data = Object.fromEntries(formData.entries());
     return {
       id: item?.id || crypto.randomUUID().toString(),
+      purchased: data.purchased === "on" ? true : false,
       ...data,
     } as Item;
   };
@@ -90,6 +89,11 @@ const ShoppingListForm: FC<ShoppingListFormProps> = ({ onClose, item }) => {
     onClose();
   };
 
+  const listTitle = isEditing ? "Edit an Item" : "Add an Item";
+  const listSubtitle = isEditing
+    ? "Edit your item below"
+    : "Add your new item below";
+
   return (
     <StyledSFormContainer>
       <StyledFormHeader>
@@ -101,8 +105,8 @@ const ShoppingListForm: FC<ShoppingListFormProps> = ({ onClose, item }) => {
         </IconButton>
       </StyledFormHeader>
       <StyledFormBody>
-        <Typography variant="body1"> Add an Item </Typography>
-        <StyledSubtitle variant="body2">Add your new item below</StyledSubtitle>
+        <Typography variant="body1"> {listTitle}</Typography>
+        <StyledSubtitle variant="body2">{listSubtitle}</StyledSubtitle>
         <StyledForm onSubmit={handleFormSubmit}>
           <StyledFormControls>
             <CustomTextInput
@@ -130,6 +134,17 @@ const ShoppingListForm: FC<ShoppingListFormProps> = ({ onClose, item }) => {
               options={QUANTITY_OPTIONS}
               name="quantity"
             />
+            {isEditing && item && (
+              <StyledFormControlLabel
+                control={
+                  <Checkbox
+                    defaultChecked={Boolean(item.purchased)}
+                    name="purchased"
+                  />
+                }
+                label="Purchased"
+              />
+            )}
           </StyledFormControls>
           <StyledFormActionsContainer>
             <StyledFormAction>

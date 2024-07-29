@@ -62,6 +62,7 @@ const CustomTextArea: React.FC<CustomTextAreaProps & TextFieldProps> = ({
         }}
         {...props}
       />
+      {/* TODO change color to theme color */}
       {error && (
         <FormHelperText sx={{ color: "red" }}>{errorMessage}</FormHelperText>
       )}
