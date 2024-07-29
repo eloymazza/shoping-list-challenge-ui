@@ -2,7 +2,7 @@ import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 // import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent, SelectProps } from "@mui/material/Select";
+import Select, { SelectProps } from "@mui/material/Select";
 
 export type QuantityOption = {
   label: string;
@@ -28,8 +28,6 @@ const CustomSelect: React.FC<CustomSelectProps & SelectProps> = ({
           </MenuItem>
         ))}
       </Select>
-
-      {/* TODO  <FormHelperText>Without label</FormHelperText> */}
     </FormControl>
   );
 };

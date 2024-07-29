@@ -7,6 +7,7 @@ import EmptyListMessage from "./EmptyListMessage/EmptyListMessage";
 import ShoppingList from "./ShoppingList/ShoppingList";
 import { useEffect } from "react";
 import { fetchItems } from "../../store/features/shoppingListSlice";
+import Spinner from "../../components/UI/Spinner";
 
 const ShoppingListPage = () => {
   // TODO: move to custom hook
@@ -21,9 +22,7 @@ const ShoppingListPage = () => {
 
   const showList = items.length > 0;
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+  if (status === "loading") return <Spinner />;
 
   return (
     <StyledShoppingListContainer>

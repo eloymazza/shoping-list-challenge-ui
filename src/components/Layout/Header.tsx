@@ -9,7 +9,7 @@ const Header: React.FC<Props> = ({ children }) => {
 };
 
 const StyledHeader = styled("header")(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.primary.dark,
   width: "100%",
   color: theme.palette.primary.contrastText,
   padding: theme.spacing(2),

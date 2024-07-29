@@ -6,6 +6,7 @@ import {
   deleteItem,
   fetchAllItems,
   postItem,
+  putItem,
 } from "../../services/shoppingList";
 import { createAppSlice } from "../CreateAppSlice";
 
@@ -30,9 +31,6 @@ const shoppingListSlice = createAppSlice({
   initialState,
   reducers: (create) => ({
     addItem: create.asyncThunk(postItem, {
-      pending: (state) => {
-        state.status = "loading";
-      },
       fulfilled: (state, action: PayloadAction<AddItemResponse>) => {
         state.status = "succeeded";
         state.items.push(action.payload.data[0]);
@@ -57,16 +55,13 @@ const shoppingListSlice = createAppSlice({
         state.error = action.error.message || null;
       },
     }),
-    editItem: create.asyncThunk(postItem, {
-      pending: (state) => {
-        state.status = "loading";
-      },
+    editItem: create.asyncThunk(putItem, {
       fulfilled: (state, action) => {
         state.status = "succeeded";
-        const index = state.items.findIndex(
-          (item) => item.id === action.payload.data[0].id
-        );
-        state.items[index] = action.payload.data[0];
+        const editedItem = action.payload.data;
+        const itemId = editedItem.id;
+        const index = state.items.findIndex((item) => item.id === itemId);
+        state.items[index] = editedItem;
       },
       rejected: (state, action) => {
         state.status = "failed";

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import ShoppingListFormDialog from "../../../../components/UI/ShoppingListFormDialog/ShoppingListFormDialog";
 import { StyledItemsListHeader } from "./StyledListHeader";
@@ -9,7 +9,7 @@ const ListHeader = () => {
   return (
     <>
       <StyledItemsListHeader>
-        <span>Your Items</span>
+        <Typography variant="h4">Your Items</Typography>
         <Button
           variant="contained"
           size="small"

@@ -1,15 +1,13 @@
-import { styled } from "@mui/material";
+import { styled, Typography } from "@mui/material";
 import { ListItem } from "@mui/material";
 
-export const StyledListItem = styled(ListItem)({
+export const StyledListItem = styled(ListItem)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  padding: "0.5rem 1rem",
-  borderBottom: "1px solid #ccc",
-  "&:last-child": {
-    borderBottom: "none",
-  },
-});
+  padding: "1rem 1rem",
+  border: `1px solid #d5dfe9`,
+  borderRadius: "5px",
+}));
 
 export const StyledItemContent = styled("div")({
   flexGrow: 1,
@@ -17,13 +15,11 @@ export const StyledItemContent = styled("div")({
   fontSize: "1.2rem",
 });
 
-export const StyledTitle = styled("span")({
-  fontSize: "1.5rem",
-  fontWeight: "bold",
+export const StyledItemTitle = styled(Typography)({
+  marginBottom: "0.25rem",
 });
 
-export const StyledDescription = styled("p")({
-  fontSize: "1rem",
+export const StyledItemDescription = styled(Typography)({
   color: "#666",
 });
 
