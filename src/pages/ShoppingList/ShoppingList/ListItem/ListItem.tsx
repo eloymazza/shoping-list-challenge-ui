@@ -2,25 +2,34 @@ import { Checkbox, IconButton } from "@mui/material";
 import { FC, useState } from "react";
 import { Item } from "../../../../types/types";
 import {
-  StyledDescription,
   StyledItemContent,
+  StyledItemDescription,
+  StyledItemTitle,
   StyledListActionsContainer,
   StyledListItem,
-  StyledTitle,
 } from "./StyledListItem";
 import ShoppingListFormDialog from "../../../../components/UI/ShoppingListFormDialog/ShoppingListFormDialog";
 import DeleteItemConfirmDialog from "../../../../components/UI/DeleteItemConfirmDialog/DeleteItemConfirmDialog";
+import { useAppDispatch } from "../../../../store/hooks";
+import { editItem } from "../../../../store/features/shoppingListSlice";
 
 type ListItemProps = {
   item: Item;
 };
-// TODO onEdit and onDeletecan be handled in this component using redux, but a dialgo open/close state is needed
 const ListItem: FC<ListItemProps> = ({ item }) => {
+  const dispatch = useAppDispatch();
   const [itemToEdit, setItemToEdit] = useState<Item>();
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteConfirmDialog, setShowDeleteConfirmDialog] = useState(false);
 
-  const handleCheckboxClick = () => {};
+  const handleCheckboxClick = (item: Item) => {
+    dispatch(
+      editItem({
+        ...item,
+        checked: !item.checked,
+      })
+    );
+  };
 
   const handleEditItem = (item: Item) => {
     setShowEditDialog(true);
@@ -34,12 +43,23 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
   return (
     <>
       <StyledListItem key={item.id}>
-        <div>
-          <Checkbox onClick={handleCheckboxClick} />
-        </div>
+        <Checkbox
+          checked={item.checked}
+          onClick={() => handleCheckboxClick(item)}
+        />
         <StyledItemContent>
-          <StyledTitle>{item.name}</StyledTitle>
-          <StyledDescription>{item.description}</StyledDescription>
+          <StyledItemTitle
+            variant="h4"
+            className={item.checked ? "strike-through" : ""}
+          >
+            {item.name}
+          </StyledItemTitle>
+          <StyledItemDescription
+            variant="h5"
+            className={item.checked ? "strike-through" : ""}
+          >
+            {item.description}
+          </StyledItemDescription>
         </StyledItemContent>
         <StyledListActionsContainer>
           <IconButton

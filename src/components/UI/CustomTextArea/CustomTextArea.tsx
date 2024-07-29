@@ -1,14 +1,25 @@
 import React from "react";
-import { Box, TextField, Typography, TextFieldProps } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Typography,
+  TextFieldProps,
+  FormHelperText,
+  FormControl,
+} from "@mui/material";
 
 interface CustomTextAreaProps {
+  errorMessage: string;
   placeholder: string;
+  error: boolean;
   charsLimit: number;
   value?: string;
 }
 
 const CustomTextArea: React.FC<CustomTextAreaProps & TextFieldProps> = ({
   charsLimit,
+  errorMessage,
+  error,
   value,
   ...props
 }) => {
@@ -25,31 +36,36 @@ const CustomTextArea: React.FC<CustomTextAreaProps & TextFieldProps> = ({
   };
 
   return (
-    <TextField
-      sx={{ position: "relative" }}
-      onChange={handleTextChange}
-      value={text}
-      InputProps={{
-        startAdornment: (
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              padding: ".5rem",
-            }}
-          >
-            <Typography
-              sx={{ color: text.length >= charsLimit ? "red" : "initial" }}
-              variant="body2"
+    <FormControl>
+      <TextField
+        sx={{ position: "relative" }}
+        onChange={handleTextChange}
+        value={text}
+        InputProps={{
+          startAdornment: (
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                padding: ".5rem",
+              }}
             >
-              {text.length}/{charsLimit}
-            </Typography>
-          </Box>
-        ),
-      }}
-      {...props}
-    />
+              <Typography
+                sx={{ color: text.length >= charsLimit ? "red" : "initial" }}
+                variant="body2"
+              >
+                {text.length}/{charsLimit}
+              </Typography>
+            </Box>
+          ),
+        }}
+        {...props}
+      />
+      {error && (
+        <FormHelperText sx={{ color: "red" }}>{errorMessage}</FormHelperText>
+      )}
+    </FormControl>
   );
 };
 

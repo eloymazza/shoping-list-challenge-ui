@@ -31,9 +31,9 @@ export const deleteItem = async (itemId: string) => {
   }
 };
 
-export const putItem = async (itemId: string, item: Item) => {
+export const putItem = async (item: Item) => {
   try {
-    const response = await httpClient.put(`/items/${itemId}`, item);
+    const response = await httpClient.put(`/items/${item.id}`, item);
     return response.data;
   } catch (error) {
     console.error("Error updating item:", error);

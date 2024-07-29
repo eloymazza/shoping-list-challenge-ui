@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { styled, Typography } from "@mui/material";
 
 export const StyledSFormContainer = styled("section")(({ theme }) => ({
   display: "flex",
@@ -8,12 +8,13 @@ export const StyledSFormContainer = styled("section")(({ theme }) => ({
 }));
 
 export const StyledFormHeader = styled("div")(({ theme }) => ({
-  color: theme.palette.grey[800],
-  fontSize: "1rem",
-  fontWeight: "bold",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  color: theme.palette.grey[700],
   textAlign: "center",
-  backgroundColor: theme.palette.grey[200],
-  padding: theme.spacing(2),
+  backgroundColor: theme.palette.grey[100],
+  padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
   width: "100%",
 }));
 
@@ -21,8 +22,15 @@ export const StyledFormBody = styled("div")(({ theme }) => ({
   display: "flex",
   flexGrow: 1,
   flexDirection: "column",
-  padding: theme.spacing(2),
+  padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
   width: "100%",
+}));
+
+export const StyledSubtitle = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grey[600],
+  fontSize: theme.typography.body2.fontSize,
+  fontWeight: theme.typography.body2.fontWeight,
+  marginBottom: theme.spacing(2),
 }));
 
 export const StyledForm = styled("form")(({ theme }) => ({

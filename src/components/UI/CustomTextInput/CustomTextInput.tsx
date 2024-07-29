@@ -1,9 +1,28 @@
-import { FormControl, OutlinedInput, OutlinedInputProps } from "@mui/material";
-// id="outlined-adornment-weight"
-const CustomTextInput = (props: OutlinedInputProps) => {
+import {
+  FormControl,
+  FormHelperText,
+  OutlinedInput,
+  OutlinedInputProps,
+} from "@mui/material";
+import { FC } from "react";
+
+type CustomTextInputProps = OutlinedInputProps & {
+  error: boolean;
+  errorMessage: string;
+};
+
+const CustomTextInput: FC<CustomTextInputProps> = ({
+  errorMessage,
+  error,
+  ...props
+}) => {
+  console.log(errorMessage);
   return (
     <FormControl variant="outlined">
-      <OutlinedInput {...props} />
+      <OutlinedInput sx={{ height: "50px" }} {...props} />
+      {error && (
+        <FormHelperText sx={{ color: "red" }}>{errorMessage}</FormHelperText>
+      )}
     </FormControl>
   );
 };

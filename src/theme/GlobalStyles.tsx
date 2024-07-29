@@ -11,7 +11,6 @@ const GlobalStyles = () => {
         },
         html: {
           height: "100vh",
-          fontFamily: `"Dosis", sans-serif`,
         },
         body: {
           height: "100%",
@@ -19,6 +18,9 @@ const GlobalStyles = () => {
         },
         "#root": {
           height: "100%",
+          "& .strike-through": {
+            textDecoration: "line-through",
+          },
         },
       }}
     />
