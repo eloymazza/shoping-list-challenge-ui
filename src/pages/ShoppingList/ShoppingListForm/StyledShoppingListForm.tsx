@@ -1,9 +1,8 @@
 import { FormControlLabel, styled, Typography } from "@mui/material";
 
-export const StyledSFormContainer = styled("section")(({ theme }) => ({
+export const StyledSFormContainer = styled("section")(() => ({
   display: "flex",
   flexDirection: "column",
-  // width: "500px",
   height: "88dvh",
 }));
 

@@ -1,10 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Button, Checkbox, IconButton, Typography } from "@mui/material";
 import {
   StyledForm,
   StyledFormAction,

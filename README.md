@@ -18,7 +18,7 @@ this document. Any decisions you make will be assessed during your challenge rev
 
 https://www.figma.com/file/FP6nTXF1nqA9J5QFk0ieHi/DEMO-UI-TEST?node-id=0%3A1
 
-# Installation
+## Installation
 
 After download the code navigate to the project folder and run:
 
@@ -35,3 +35,21 @@ And then:
 For serving the app in a production environment, run the following command:
 
 `npm run serve`
+
+## Dockerization
+
+For run this app as a docker container, ensure you have docker installed and run the following commands:
+
+`docker build -t 'shopping-list-ui:v1.0' .`
+
+and then
+
+`docker run -p 8080:8080 shopping-list-ui:v1.0`
+
+Or simply run:
+
+`npm run docker:build`
+
+and then
+
+`npm run docker:run`

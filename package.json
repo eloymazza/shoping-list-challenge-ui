@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "serve": "serve -s dist"
+    "serve": "serve -p 8080 -s dist",
+    "docker:build": "docker build -t 'shopping-list-ui:v1.0' .",
+    "docker:run": "docker run -p 8080:8080 shopping-list-ui:v1.0"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
