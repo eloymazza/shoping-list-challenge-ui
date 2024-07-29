@@ -1,7 +1,7 @@
 import { styled, Typography } from "@mui/material";
 import { ListItem } from "@mui/material";
 
-export const StyledListItem = styled(ListItem)(({ theme }) => ({
+export const StyledListItem = styled(ListItem)(() => ({
   display: "flex",
   alignItems: "center",
   padding: "1rem 1rem",
@@ -23,7 +23,7 @@ export const StyledItemDescription = styled(Typography)({
   color: "#666",
 });
 
-export const StyledListActionsContainer = styled("div")(({ theme }) => ({
+export const StyledListActionsContainer = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
 }));
