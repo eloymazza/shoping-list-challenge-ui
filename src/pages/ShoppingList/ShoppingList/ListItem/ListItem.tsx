@@ -53,6 +53,7 @@ const ListItem: FC<ListItemProps> = ({ item }) => {
           <StyledItemTitle
             variant="h4"
             className={item.purchased ? "strike-through" : ""}
+            color={item.purchased ? "primary.main" : "initial"}
           >
             {item.name}
           </StyledItemTitle>
